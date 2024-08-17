@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="flyadd.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class=" cart-nav">
+            <div class="icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Cart</span>
+            </div>
+            <div class="item-count">0</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            <div class="content">
+                <div class=" row">
+                    <div class="details">
+                        <span>Dinner</span>
+                        <p>Lorem ipsum dolor sit amet.</p>
+
+                    </div>
+                    <div class="price">80$</div>
+                </div>
+
+                <div class="buttons">
+                    <button>Buy Now</button>
+                    <button id="addCart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            var count = 0;
+            $('#addCart').click(function(){
+                var cart = $(".cart-nav");
+                var imgCart = $(this).closest(".card").find("img").eq(0);
+                if(imgCart.length) {
+                    
+                    var imgCopy = imgCart.clone().offset({
+                        top: imgCart.offset().top,
+                        left: imgCart.offset().left
+                    }).css({
+                        "position": "absolute",
+                        "opacity": "0.7",
+                        "z-index": "100",
+                        "width": "150px",
+                        "height": "150px"    
+                    }).appendTo($("body")).animate({
+                        "top": cart.offset().top + 30, 
+                        "left": cart.offset().left + 40,
+                        "width": "150px",
+                        "height": "150px",
+                    });
+        
+                    imgCopy.animate({
+                        "width": "0",
+                        "height": "0"
+                    }, 1000, function(){
+                        $(this).detach();
+                    });
+
+                    setTimeout(function(){
+                        count++;
+                        $(".cart-nav .item-count").text(count);
+                    });
+                }
+            });
+        });
+        
+    </script>
+
+
+</body>
+</html>
